@@ -1,4 +1,4 @@
-package com.sohu.system.util;
+package com.zhanglihai.util;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
