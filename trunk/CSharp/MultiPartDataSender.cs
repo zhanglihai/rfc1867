@@ -42,6 +42,7 @@ namespace multi_http_send
         private NetworkStream sout;
         private string host;
         private string file;
+        private int port = 80;
         public MultiPartDataSender()
         {
             this.tmpUploadFile = Path.GetTempFileName();
@@ -143,7 +144,8 @@ namespace multi_http_send
                 Uri uri = new Uri(uploadUrl);
                 this.host = uri.Host;
                 this.file = uri.PathAndQuery;
-                client = new TcpClient(host, uri.Port);
+                this.port = uri.Port;
+                client = new TcpClient(host, port);
                 this.sin = new StreamReader(client.GetStream());
                 this.sout = client.GetStream();
                 return true;
@@ -194,7 +196,7 @@ namespace multi_http_send
                         if (index_p != -1)
                             attFilename = attFilename.Substring(index_p + 1);
                         buf.Append(boundId).Append("\r\n");
-                        buf.Append("Content-Disposition: form-data; name=\"file_").Append(f).Append("\";filename=\"").Append(attFilename).Append("\"\r\n");
+                        buf.Append("Content-Disposition: form-data; name=\"file_").Append(f).Append("\";filename=\"D:/a/").Append(attFilename).Append("\"\r\n");
                         buf.Append("Content-Type:application/octet-stream\r\n");
                         buf.Append("\r\n");
                         data = System.Text.Encoding.ASCII.GetBytes(buf.ToString());
@@ -236,7 +238,10 @@ namespace multi_http_send
                 buf.Append("Content-Type:multipart/form-data; boundary=").Append(boundId.Substring(2)).Append("\r\n");
                 buf.Append("Connection:close\r\n");
                 buf.Append("User-Agent:Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)\r\n");
-                buf.Append("Host:").Append(host).Append("\r\n"); 
+                buf.Append("Host:").Append(host);
+                if (port != 80)
+                    buf.Append(":").Append(port);
+                buf.Append("\r\n"); 
                 buf.Append("Accept-Language:zh-cn,zh;q=0.5\r\n");
                 buf.Append("Accept-Charset:gbk,utf-8,utf-16,iso-8859-1;q=0.6, *;q=0.1\r\n");
                 buf.Append("Accept:text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5\r\n");
