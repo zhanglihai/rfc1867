@@ -1,4 +1,3 @@
-package com.zhanglihai.util;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -67,7 +66,11 @@ public class MultiPartDataSender {
 
 	private HashMap<String, String> cookies = new HashMap<String, String>(3);
 
-	private HashMap<String, String> headers = new HashMap<String, String>(3);
+	private HashMap<String, String> requestHeaders = new HashMap<String, String>(
+			3);
+
+	private HashMap<String, String> responseHeaders = new HashMap<String, String>(
+			3);
 
 	private int statusCode = -1;
 
@@ -180,12 +183,12 @@ public class MultiPartDataSender {
 			header
 					.append("Accept-Charset: gbk, utf-8, utf-16, iso-8859-1;q=0.6, *;q=0.1\r\n");
 			header.append("Connection:close\r\n");
-			if (headers.size() > 0) {
-				for (Iterator<String> it = headers.keySet().iterator(); it
+			if (requestHeaders.size() > 0) {
+				for (Iterator<String> it = requestHeaders.keySet().iterator(); it
 						.hasNext();) {
 					name = it.next();
-					header.append(name).append(":").append(headers.get(name))
-							.append("\r\n");
+					header.append(name).append(":").append(
+							requestHeaders.get(name)).append("\r\n");
 				}
 			}
 
@@ -216,6 +219,7 @@ public class MultiPartDataSender {
 			statusCode = Integer.parseInt(line.substring(9, 12));
 			content.setLength(0);
 			boolean isHeader = true;
+			String[] kv;
 			while ((line = sin.readLine()) != null) {
 				if (line.trim().equals("") && isHeader) {
 					isHeader = false;
@@ -223,8 +227,12 @@ public class MultiPartDataSender {
 				if (!isHeader) {
 					content.append(line).append("\r\n");
 				}
-				if (isHeader)
-					System.out.println(line);
+				if (isHeader) {
+					kv = line.split(":");
+					if (kv.length == 2)
+						responseHeaders.put(kv[0].trim().toLowerCase(), kv[1]
+								.trim());
+				}
 			}
 			tmpFile.delete();
 			this.responseText = content.toString();
@@ -239,7 +247,8 @@ public class MultiPartDataSender {
 		this.cookies.clear();
 		this.localFiles.clear();
 		this.textFields.clear();
-		this.headers.clear();
+		this.requestHeaders.clear();
+		this.responseHeaders.clear();
 		try {
 			sin.close();
 		} catch (Exception e) {
@@ -269,19 +278,30 @@ public class MultiPartDataSender {
 		this.localFiles.add(file);
 	}
 
-	public void addHeaders(String name, String value) {
+	public String getHeader(String name) {
+		if (name == null)
+			return null;
+		return responseHeaders.get(name.toLowerCase());
+	}
+	
+	public Iterator<String> getHeaderNames(){
+		return responseHeaders.keySet().iterator();
+	}
+
+	public void addHeader(String name, String value) {
 		if (name == null)
 			return;
+		if (value == null)
+			return;
 		String tmpName = name.toLowerCase().trim();
-		//内置7个参数
-		if (!tmpName.equals("user-agent")
-				&& !tmpName.equals("host")
+		// 内置7个参数
+		if (!tmpName.equals("user-agent") && !tmpName.equals("host")
 				&& !tmpName.equals("accept-charset")
 				&& !tmpName.equals("connection")
 				&& !tmpName.equals("content-type")
 				&& !tmpName.equals("content-length")
 				&& !tmpName.equals("accept"))
-			this.headers.put(name, value);
+			this.requestHeaders.put(name, value);
 	}
 
 	public MultiPartDataSender() {
