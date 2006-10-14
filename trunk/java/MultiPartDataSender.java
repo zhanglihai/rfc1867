@@ -175,7 +175,10 @@ public class MultiPartDataSender {
 			content.setLength(0);
 			StringBuffer header = new StringBuffer();
 			header.append("POST ").append(uri).append(" HTTP/1.1\r\n");
-			header.append("Host:").append(host).append("\r\n");
+			header.append("Host:").append(host);
+			if(port!=80)
+				header.append(":").append(port);
+			header.append("\r\n");
 			header
 					.append("User-Agent:Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)\r\n");
 			header
