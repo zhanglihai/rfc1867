@@ -194,7 +194,7 @@ namespace multi_http_send
                         if (index_p != -1)
                             attFilename = attFilename.Substring(index_p + 1);
                         buf.Append(boundId).Append("\r\n");
-                        buf.Append("Content-Disposition: form-data; name=\"file_").Append(f).Append("\";filename=\"D:/a/").Append(attFilename).Append("\"\r\n");
+                        buf.Append("Content-Disposition: form-data; name=\"file_").Append(f).Append("\";filename=\"").Append(attFilename).Append("\"\r\n");
                         buf.Append("Content-Type:application/octet-stream\r\n");
                         buf.Append("\r\n");
                         data = System.Text.Encoding.ASCII.GetBytes(buf.ToString());
