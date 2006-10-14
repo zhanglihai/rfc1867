@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "multi_http_send", "multi_http_send\multi_http_send.csproj", "{33BF4806-2359-4357-8931-143C6D61033B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33BF4806-2359-4357-8931-143C6D61033B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33BF4806-2359-4357-8931-143C6D61033B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33BF4806-2359-4357-8931-143C6D61033B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33BF4806-2359-4357-8931-143C6D61033B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
