@@ -174,7 +174,7 @@ public class MultiPartDataSender {
 			tmpFout.close();
 			content.setLength(0);
 			StringBuffer header = new StringBuffer();
-			header.append("POST ").append(uri).append(" HTTP/1.1\r\n");
+			header.append("POST ").append(uri).append(" HTTP/1.0\r\n");
 			header.append("Host:").append(host);
 			if(port!=80)
 				header.append(":").append(port);
