@@ -30,7 +30,7 @@ int  http_multi_send(struct st_multi_req__ *req)
    char url_file[url_len];
    char *un_line="-----------------------------";
    char bound_id[200];
-   char *header_str="POST %s HTTP/1.1\r\nHost:%s\r\nUser-Agent:Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)\r\nConnection:close\r\nContent-Type:multipart/form-data; boundary=%s\r\nContent-Length:%d\r\n\r\n";
+   char *header_str="POST %s HTTP/1.0\r\nHost:%s\r\nUser-Agent:Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)\r\nConnection:close\r\nContent-Type:multipart/form-data; boundary=%s\r\nContent-Length:%d\r\n\r\n";
    char  *tmp_file_str="tmp_upload";
    char  http_header[1024]; 
    struct sockaddr_in serv_addr;
