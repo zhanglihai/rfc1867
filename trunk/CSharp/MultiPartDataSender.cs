@@ -234,7 +234,7 @@ namespace multi_http_send
   
 
                 buf.Length = 0;
-                buf.Append("POST ").Append(file).Append(" HTTP/1.1\r\n");
+                buf.Append("POST ").Append(file).Append(" HTTP/1.0\r\n");
                 buf.Append("Content-Type:multipart/form-data; boundary=").Append(boundId.Substring(2)).Append("\r\n");
                 buf.Append("Connection:close\r\n");
                 buf.Append("User-Agent:Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)\r\n");
